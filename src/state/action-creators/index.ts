@@ -9,11 +9,18 @@ export const searchRepositories = (term: string) => {
       type: ActionType.SEARCH_REPOSITORIES,
     });
     try {
-      const { data } = await axios({ method: "GET", url: "https://registry.npmjs.org/-/v1/search", params: { text: term } });
+      const { data } = await axios({
+        method: "GET",
+        url: "https://registry.npmjs.org/-/v1/search",
+        params: { text: term },
+      });
       const names = data.objects.map((result: any) => {
         return result.package.name;
       });
-      dispatch({ type: ActionType.SEARCH_REPOSITORIES_SUCCESS, payload: names });
+      dispatch({
+        type: ActionType.SEARCH_REPOSITORIES_SUCCESS,
+        payload: names,
+      });
     } catch (e) {
       dispatch({
         type: ActionType.SEARCH_REPOSITORIES_ERROR,
